@@ -1,1 +1,6 @@
+<view class="loading-container" wx:if="{{loading}}">
+  <i-spin class="loader" size="large"></i-spin>
+  <view class="loading-text" style="font-family: 'PingFangSC-Light', sans-serif;font-size: 36rpx; color: white;">壁纸生成中</view>
+</view>
 <canvas canvas-id="k-canvas" style="{{painterStyle}}{{customStyle}}" />
+

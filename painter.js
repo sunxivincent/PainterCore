@@ -42,6 +42,7 @@ Component({
     picURL: '',
     showCanvas: true,
     painterStyle: '',
+    loading: false,
   },
 
   methods: {
@@ -64,6 +65,9 @@ Component({
     },
 
     startPaint() {
+      this.setData({
+        loading: true
+      })
       if (this.isEmpty(this.properties.palette)) {
         return;
       }
@@ -77,6 +81,9 @@ Component({
             error: error
           });
           console.error(error);
+          this.setData({
+            loading: false
+          })
           return;
         }
       }
@@ -90,6 +97,9 @@ Component({
         } = palette;
         
         if (!width || !height) {
+          this.setData({
+            loading: false
+          })
           console.error(`You should set width and height correctly for painter, width: ${width}, height: ${height}`);
           return;
         }
@@ -109,6 +119,14 @@ Component({
         pen.paint(() => {
           this.saveImgToLocal();
         });
+        this.setData({
+          loading: false
+        })
+      }).catch(e => {
+        console.error('failed to downloadImages', e)
+        this.setData({
+          loading: false
+        })
       });
     },
 
